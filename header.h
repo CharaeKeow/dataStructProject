@@ -9,8 +9,9 @@ private:
 		T bookTitle;
 		T author;
 		Node* next;
-	}; Node* head, * tail;
+	}; 
 public:
+	Node* head, * tail, *temp;
 	List();
 	~List() {};
 	void addBook(T bookID, T bookTitle, T author);
