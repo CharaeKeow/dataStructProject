@@ -5,6 +5,7 @@ using namespace std;
 
 template <class T>
 List<T>::List(){
+	temp = NULL;
 	head = NULL;
 	tail = NULL;
 }
