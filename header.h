@@ -4,13 +4,14 @@
 template <class T>
 class List {
 private:
+	
 	struct Node {
 		T bookID;
 		T bookTitle;
 		T author;
 		Node* next;
 	};
-public:
+public:	
 	Node* head, * tail, *temp;
 	List();
 	~List() {};
@@ -19,7 +20,6 @@ public:
 	void deleteBook(int position);
 	void deleteHead();
 	void updateBook(int position);
-
 	void addBookInput();
 };
 
