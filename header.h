@@ -9,13 +9,15 @@ private:
 		T bookID;
 		T bookTitle;
 		T author;
+		T availability;
 		Node* next;
 	};
-public:	
+public:
+	int count;
 	Node* head, * tail, *temp;
 	List();
 	~List() {};
-	void addBook(T bookID, T bookTitle, T author);
+	void addBook(T bookID, T bookTitle, T author, T availability);
 	void displayBook();
 	void deleteBook(int position);
 	void deleteHead();
