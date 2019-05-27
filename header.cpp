@@ -1,97 +1,126 @@
-#include "header.h"
 #include <iostream>
-#include <string>
+#include <fstream> //for file handling
+#include <string> //we use string data type
 using namespace std;
+#include "header.h"
 
-template <class T>
-List<T>::List(){
-	temp = NULL;
-	head = NULL;
-	tail = NULL;
-}
+int main() {
+	int choice; //For menu navigation
+	int quit; // for exit;
+	int ans;
+	int position; //position of book for its deletion
 
-template <class T>
-void List<T>::addBook(T bookID, T bookTitle, T author) {
-	Node* temp = new Node;
-	temp->bookID = bookID;
-	temp->bookTitle = bookTitle;
-	temp->author = author;
-	temp->next = NULL;
-	if (head == NULL) {
-		head = temp; 
-		tail = temp;
-		temp = NULL;
+	//Load file and read item in file. Work in background without user knowing
+	//ifstream infile;
+	//ofstream outfile;
+	string next, next2, next3;
+	List<string> list;
+
+	//infile.open("infile.txt");
+	fstream fs;
+	fs.open ("infile.txt", fstream::in);
+
+	//load the data into Linked List.
+	/*
+	while (getline(infile, next), getline(infile, next2), getline(infile, next3)) {
+		list.addBook(next, next2, next3);
+	} */
+
+	while (getline(fs, next), getline(fs, next2), getline(fs, next3)) {
+		list.addBook(next, next2, next3);
 	}
-	else {
-		tail->next = temp;
-		tail = temp;
-	}
-}
 
-template <class T>
-void List<T>::addBookInput() {
-	T bookID; 
-	T bookTitle; 
-	T author;
-
-	cout << "Enter bookID, bookTitle, and book Author" << endl;
-	cin.ignore();
-	getline(cin, bookID);
+	fs.close();
 	
-	getline(cin, bookTitle);
-	getline(cin, author);
-	
-	addBook(bookID, bookTitle, author);	
-}
+	//Menu.
+	cout << "\nLibrary Book Management System" << endl;
+	cout << "Version 001.001\n\n\n";
 
-template <class T>
-void List<T>::displayBook() {
+	//Switch or if?
+	do {
+		cout << "==== Main Menu ====\n\n";
+		cout << "Choose your action. It is recommended that you read the docs" << "\n" << "first if you're first time user.\n\n"; //For ease of read purpose.
+		cout << "1.Enter the program." << endl;
+		cout << "2.Read the documentation." << endl;
+		cout << "3.Exit." << endl;
+		cin >> choice;
+		switch (choice) {
+		case 1:
+			do {
+				cout << "Now, choose your action: " << endl << endl;
+				cout << "1. Display book." << endl;
+				cout << "2. Add book." << endl;
+				cout << "3. Delete book." << endl;
+				cout << "4. Update book." << endl;
+				//cout << "5. Search book." << endl;
+				//cout << "6. Sort book." << endl;
+				cout << "7. Save." << endl;
+				cout << "8. Go to main menu." << endl;
+				cin >> ans;
 
-	int bookPosition = 1;
-	Node* temp = new Node; //declare new temp pointer
-	temp = head; //set to start from head
-	while (temp != NULL) { //Loop through the list while it's not empty
-		cout << "Book Position: " << bookPosition <<endl;
-		cout << "Book ID: " << temp->bookID << endl;
-		cout << "Book Title: " << temp->bookTitle << endl;
-		cout << "Book Author: " << temp->author << endl;
-		cout << "\n";
-		bookPosition++;
-		temp = temp->next;
-	}
-}
-
-template <class T>
-void List<T>::deleteBook(int position) {
-	Node* current = new Node;
-	Node* previous = new Node;
-	Node* next = new Node;
-	current = head;
-	for (int i = 1; i < position; i++) {
-		if (current == NULL) {
-			return; //nothing to delete, so return
+				//switch statement to select menu.
+				switch (ans) {
+				case 1:
+					list.displayBook();
+					break;
+				case 2:
+					list.addBookInput();
+					break;
+				case 3: 
+					cout << "Enter book position." << endl;
+					cin >> position;						
+					
+					if (position == 1) { //if position = 1 - i.e. first node (head) - delete head
+						list.deleteHead();
+					}
+					else {
+						list.deleteBook(position); //else delete based on its position.
+					}
+					break;
+				case 4: 
+					cout << "Update book: " << endl;
+					cout << "Enter book position: " << endl;
+					cin >> position;
+					list.updateBook(position);
+				case 7:
+					fs.open("infile.txt", fstream::out);
+					list.temp = list.head;
+					while (list.temp != NULL) {
+						fs << list.temp->bookID << endl;
+						fs << list.temp->bookTitle << endl;
+						fs << list.temp->author << endl;
+						list.temp = list.temp->next;											
+					}
+					break;
+				case 8: //quitting condition
+					ans = 8;
+					break;
+				} 
+			} while (ans != 8);
+			break;
+		case 2:
+			cout << "Documentation" << endl;
+			//{*** TODO ***}
+			break;
 		}
-		previous = current;
-		current = current->next;
-	}
-	next = current->next;
-	previous->next = current->next;
-	delete current;
+	} while (choice != 3);
+		
+		//list.addBook("B024324", "Harry Potter and the Philosopher's Stone", "J.K. Rowling");
+		//list.displayBook();
+	
+		//write the file out. Also works in background. Will make a save feature later.
+		//Also, save automatically if the user exit (normal exit).
+		/*
+		list.temp = list.head;
+		while (list.temp != NULL) {
+			outfile << list.temp->bookID << endl;
+			outfile << list.temp->bookTitle << endl;
+			outfile << list.temp->author << endl;
+			list.temp = list.temp->next;
+		} 
+		*/
+	fs.close();
+	
+	return 0;
 }
 
-template <class T>
-void List<T>::deleteHead() {
-	Node* temp = new Node;
-	temp = head;
-	head = head->next;
-	delete temp;
-}
-
-/* Update {*** DOING ***}
-template <class T>
-void List<T> :: updateBook(int position) {
-	Node* current = new Node;
-}
-*/
-
-template class List<string>;
