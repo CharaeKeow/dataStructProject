@@ -11,11 +11,12 @@ List<T>::List(){
 }
 
 template <class T>
-void List<T>::addBook(T bookID, T bookTitle, T author) { //add book. Note that this method adds values to the end of the tail.
+void List<T>::addBook(T bookID, T bookTitle, T author, T availability) { //add book. Note that this method adds values to the end of the tail.
 	Node* temp = new Node; 
 	temp->bookID = bookID; //Might be a little bit confusing and ambiguous (as the name is same) 
 	temp->bookTitle = bookTitle; //but it works! Set data to node.
 	temp->author = author;
+	temp->availability = availability;
 	temp->next = NULL; //Temp point to null as this is the last node (tail).
 	if (head == NULL) { //if empty list,
 		head = temp;  //temp will be both head and tail
@@ -26,6 +27,7 @@ void List<T>::addBook(T bookID, T bookTitle, T author) { //add book. Note that t
 		tail->next = temp; //if node is not empty, set temp as tail.
 		tail = temp; 
 	}
+	count++;
 }
 
 /*
@@ -39,14 +41,16 @@ void List<T>::addBookInput() {
 	T bookID; 
 	T bookTitle; 
 	T author;
+	T availability;
 
 	cout << "Enter bookID, bookTitle, and book Author" << endl; //Due some errors with getline(), we do this. Bad UX, though
 	cin.ignore(); //Ignore the newline
 	getline(cin, bookID); 	
 	getline(cin, bookTitle);
 	getline(cin, author);
+	getline(cin, availability);
 	
-	addBook(bookID, bookTitle, author);	//invoke addBook and pass user's input to the invoked function
+	addBook(bookID, bookTitle, author, availability);	//invoke addBook and pass user's input to the invoked function
 	
 	cout << "The list after adding a book is: " << endl;
 	displayBook();
@@ -69,10 +73,10 @@ void List<T>::displayBook() {
 		cout << "Book ID: " << temp->bookID << endl;
 		cout << "Book Title: " << temp->bookTitle << endl;
 		cout << "Book Author: " << temp->author << endl;
+		cout << "Book Availabity: " << temp->availability << endl;
 		cout << "\n";
 		bookPosition++;
-		temp = temp->next; //traverse to next node
-		count++;
+		temp = temp->next; //traverse to next node		
 	}
 }
 
@@ -89,16 +93,12 @@ void List<T>::deleteBook(int position) {
 	Node* previous = new Node;
 	Node* next = new Node;
 	current = head;
-	/*
+	
 	if (position > count) { 
 		cout << "Invalid position!";
 		return;
 	}
-	else if (position == count) {
-		next =
-	}
-	*/
-	
+		
 	for (int i = 1; i < position; i++) {
 		if (current == NULL) {
 			return; //nothing to delete, so return
@@ -106,9 +106,19 @@ void List<T>::deleteBook(int position) {
 		previous = current;
 		current = current->next;		
 	}
+
+	if (position == count) {
+		previous->next = current->next; //previous point to NULL
+		tail = previous;
+		delete current;
+		count--;
+		return;
+	}
+
 	next = current->next;
 	previous->next = current->next;
 	delete current;	
+	count--;
 }
 
 
@@ -119,6 +129,7 @@ void List<T>::deleteHead() {
 	temp = head;
 	head = head->next;
 	delete temp;	
+	count--;
 }
 
 template <class T>
@@ -126,9 +137,10 @@ void List<T> :: updateBook(int position) {
 	Node* current = new Node;
 	Node* previous = new Node;
 	Node* next = new Node;
+	T newValue;// for enter new node's data value.
+	int choice;// for choosing option during menu.
 	current = head;
-	T newValue; // for enter new node's data value.
-	int choice; // for choosing option during menu.
+		 
 	/*
 	--- NOTE ---	
 	Previously, there is a bug when update the tail. Seems the method to traverse from head until
@@ -138,8 +150,13 @@ void List<T> :: updateBook(int position) {
 	early exit condition, it will return if the position is tail, as the code below is for updating node that
 	is not tail.
 	*/
-	if (position == position){ 
-		cin >> choice;
+	if (position == count){ 
+		cout << "What do you want to update?" << endl;
+		cout << "1. Book ID" << endl;
+		cout << "2. Book Title" << endl;
+		cout << "3. Author" << endl;
+		cout << "4. Availability" << endl;
+		cin >> choice;		
 		if (choice == 1) {
 			cout << "Enter new book ID: " << endl;
 			cin.ignore();
@@ -158,6 +175,12 @@ void List<T> :: updateBook(int position) {
 			getline(cin, newValue);
 			tail->author = newValue;
 		}
+		else if (choice == 4) {
+			cout << "Alter the book availability: " << endl;
+			cin.ignore();
+			getline(cin, newValue);
+			tail->availability = newValue;
+		}
 		else {
 			cout << "Sorry, that's invalid choice." << endl;
 			cout << "No update";
@@ -166,12 +189,13 @@ void List<T> :: updateBook(int position) {
 
 		//Show the updated value for that node only, as display all is a little bit overkill, I think.
 
-		cout << "\n\nThe book details after update are: " << endl; 
+		cout << "\n\nThe book details after update are: " << endl;
 		cout << "Book ID: " << tail->bookID << endl;
 		cout << "Book Title: " << tail->bookTitle << endl;
 		cout << "Author: " << tail->author << endl;
 		return;
 	}
+	
 
 	/*
 	This is for updating the other node other than tail. As stated above - if you read them, great, otherwise
@@ -189,6 +213,7 @@ void List<T> :: updateBook(int position) {
 	cout << "1. Book ID" << endl;
 	cout << "2. Book Title" << endl;
 	cout << "3. Author" << endl;
+	cout << "4. Book Availability" << endl;
 	cin >> choice;
 	if (choice == 1) {
 		cout << "Enter new book ID: " << endl;
@@ -207,6 +232,12 @@ void List<T> :: updateBook(int position) {
 		cin.ignore();
 		getline(cin, newValue);
 		current->author = newValue;
+	}
+	else if (choice == 4) {
+		cout << "Alter the book availability: " << endl;
+		cin.ignore();
+		getline(cin, newValue);
+		tail->availability = newValue;
 	}
 	else {
 		cout << "Sorry, that's invalid choice." << endl;
