@@ -1,15 +1,36 @@
-b03182004
-Once Upon A Time In America
-Frankie de Jong
-AF8950
+B031820094
+Problem Solving With C++: The Obkect of Programming
+Peter Mueller
+Yes
+B023321231
+Vietnam: An Epic Tragedy
+Max Hasting
+No
+B241234
+Educated: A Memoir
+Tara Westmann
+Yes
+A7777
+The Buried Giant
+Kazuo Ishiguro
+Yes
+8934123C
+Go Set The Watchment
+Harper Lee
+No
+9381408132
+The Gene
+Siddharta Mukherje
+No
+J0943
+Cancer: The Emperor of All Maladies
+Siddharta Mukerje
+Yes
+KKKK00
 Innovator
 Walter Isaacson
-B1312
-To Kill a Mocking Bird
-Harper Lee
-B24234315
-Educator A Memoir
-Tara Westover
-B1246234
-The Adventure of Sherlock Holmes 
-Sir Arthur Conan Doyle
+Yes
+J8983124
+Alibaba, the House That Jack Ma Built
+Noel
+Yes
