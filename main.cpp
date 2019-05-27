@@ -13,7 +13,7 @@ int main() {
 	//Load file and read item in file. Work in background without user knowing
 	//ifstream infile;
 	//ofstream outfile;
-	string next, next2, next3;
+	string next, next2, next3, next4;
 	List<string> list;
 
 	//infile.open("infile.txt");
@@ -26,8 +26,8 @@ int main() {
 		list.addBook(next, next2, next3);
 	} */
 
-	while (getline(fs, next), getline(fs, next2), getline(fs, next3)) {
-		list.addBook(next, next2, next3);
+	while (getline(fs, next), getline(fs, next2), getline(fs, next3), getline(fs, next4)) {
+		list.addBook(next, next2, next3, next4);
 	}
 
 	fs.close();
@@ -89,6 +89,7 @@ int main() {
 						fs << list.temp->bookID << endl;
 						fs << list.temp->bookTitle << endl;
 						fs << list.temp->author << endl;
+						fs << list.temp->availability << endl;
 						list.temp = list.temp->next;											
 					}
 					break;
@@ -104,21 +105,7 @@ int main() {
 			break;
 		}
 	} while (choice != 3);
-		
-		//list.addBook("B024324", "Harry Potter and the Philosopher's Stone", "J.K. Rowling");
-		//list.displayBook();
-	
-		//write the file out. Also works in background. Will make a save feature later.
-		//Also, save automatically if the user exit (normal exit).
-		/*
-		list.temp = list.head;
-		while (list.temp != NULL) {
-			outfile << list.temp->bookID << endl;
-			outfile << list.temp->bookTitle << endl;
-			outfile << list.temp->author << endl;
-			list.temp = list.temp->next;
-		} 
-		*/
+				
 	fs.close();
 	
 	return 0;
