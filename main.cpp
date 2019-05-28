@@ -2,14 +2,13 @@
 #include <fstream> //for file handling
 #include <string> //we use string data type
 #include <Windows.h>
-#include <stdio.h>
-#include <string.h>
+//#include <stdio.h> //no longer needed
+//#include <string.h>
 using namespace std;
 #include "header.h"
 
 int main() {
 	int choice; //For menu navigation
-	int quit; // for exit;
 	int ans;
 	int position; //position of book for its deletion
 
@@ -56,8 +55,9 @@ int main() {
 				cout << "3. Delete book." << endl;
 				cout << "4. Update book." << endl;
 				cout << "5. Search book." << endl;
-				cout << "6. Save." << endl;
-				cout << "7. Go to main menu." << endl;
+				cout << "6. Book Count." << endl;
+				cout << "7. Save." << endl;
+				cout << "8. Go to main menu." << endl;
 				cin >> ans;
 
 				//switch statement to select menu.
@@ -89,6 +89,8 @@ int main() {
 					list.searchBook();
 					break;
 				case 6:
+					cout << "Book Count" << list.count << endl;
+				case 7:
 					fs.open("infile.txt", fstream::out);
 					list.temp = list.head;
 					while (list.temp != NULL) {
@@ -99,11 +101,11 @@ int main() {
 						list.temp = list.temp->next;											
 					}
 					break;
-				case 7: //quitting condition
-					ans = 7;
+				case 8: //quitting condition
+					ans = 8;
 					break;
 				} 
-			} while (ans != 7);
+			} while (ans != 8);
 			break;
 		case 2:
 			cout << "Documentation" << endl;
