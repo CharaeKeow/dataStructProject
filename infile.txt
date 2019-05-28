@@ -1,0 +1,44 @@
+B031820094
+Problem Solving With C++: The Obkect of Programming
+Peter Mueller
+Yes
+B023321231
+Vietnam: An Epic Tragedy
+Max Hasting
+No
+B241234
+Educated: A Memoir
+Tara Westmann
+Yes
+A7777
+The Buried Giant
+Kazuo Ishiguro
+Yes
+8934123C
+Go Set The Watchment
+Harper Lee
+No
+9381408132
+The Gene
+Siddharta Mukherje
+No
+J0943
+Cancer: The Emperor of All Maladies
+Siddharta Mukerje
+Yes
+KKKK00
+Innovator
+Walter Isaacson
+Yes
+J8983124
+Alibaba, the House That Jack Ma Built
+Noel
+Yes
+78jjj
+How Google Works
+Eric Schmidt
+Yes
+987329814
+To Kill A Mockingbird
+Harper Lee
+No
