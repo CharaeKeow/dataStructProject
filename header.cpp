@@ -13,6 +13,7 @@ List<T>::List(){
 template <class T>
 void List<T>::addBook(T bookID, T bookTitle, T author, T availability) { //add book. Note that this method adds values to the end of the tail.
 	Node* temp = new Node; 
+	// Count = 1 because this is the first node, and for our node, the first index is 1 (rather than 0)
 	temp->bookID = bookID; //Might be a little bit confusing and ambiguous (as the name is same) 
 	temp->bookTitle = bookTitle; //but it works! Set data to node.
 	temp->author = author;
@@ -27,7 +28,7 @@ void List<T>::addBook(T bookID, T bookTitle, T author, T availability) { //add b
 		tail->next = temp; //if node is not empty, set temp as tail.
 		tail = temp; 
 	}
-	count++;
+	count++;	
 }
 
 /*
@@ -140,7 +141,8 @@ void List<T> :: updateBook(int position) {
 	T newValue;// for enter new node's data value.
 	int choice;// for choosing option during menu.
 	current = head;
-		 
+	cout << "Book Count: " << count << endl;
+
 	/*
 	--- NOTE ---	
 	Previously, there is a bug when update the tail. Seems the method to traverse from head until
@@ -176,7 +178,7 @@ void List<T> :: updateBook(int position) {
 			tail->author = newValue;
 		}
 		else if (choice == 4) {
-			cout << "Change the book availability: " << endl;
+			cout << "Enter new book availability value: " << endl;
 			cin.ignore();
 			getline(cin, newValue);
 			tail->availability = newValue;
@@ -193,10 +195,10 @@ void List<T> :: updateBook(int position) {
 		cout << "Book ID: " << tail->bookID << endl;
 		cout << "Book Title: " << tail->bookTitle << endl;
 		cout << "Author: " << tail->author << endl;
+		cout << "Availability: " << tail->availability << endl << endl;
 		return;
 	}
 	
-
 	/*
 	This is for updating the other node other than tail. As stated above - if you read them, great, otherwise
 	it's fine, :( - we will traverse the node from head to the desired node.
@@ -234,7 +236,7 @@ void List<T> :: updateBook(int position) {
 		current->author = newValue;
 	}
 	else if (choice == 4) {
-		cout << "Alter the book availability: " << endl;
+		cout << "Enter new availability value: " << endl;
 		cin.ignore();
 		getline(cin, newValue);
 		tail->availability = newValue;
@@ -248,7 +250,7 @@ void List<T> :: updateBook(int position) {
 	cout << "Book ID: " << current->bookID << endl;
 	cout << "Book Title: " << current->bookTitle << endl;
 	cout << "Author: " << current->author << endl;
-	cout << "Availability: " << current->availability << endl;
+	cout << "Availability: " << current->availability << endl<< endl;
 }
 
 template <class T>
@@ -273,13 +275,13 @@ void List<T>::searchBook() {
 		if (target.compare(temp->bookID) == 0) {
 			cout << "\nFound book!" << endl;
 			cout << "Its details is:" << endl;
-			cout << temp->bookID << endl;
-			cout << temp->bookTitle << endl;
-			cout << temp->author << endl;
-			cout << temp->availability << endl << endl;
+			cout << "Book ID: "<<temp->bookID << endl;
+			cout << "Book Title: " << temp->bookTitle << endl;
+			cout << "Book Author: " << temp->author << endl;
+			cout << "Availability: " << temp->availability << endl << endl;
 		}
 		else {
-			cout << "No match found.";
+			cout << "No match found." << endl;
 		}
 	}
 	else  if (choice == 2) {
@@ -292,13 +294,13 @@ void List<T>::searchBook() {
 		if (target.compare(temp->bookID) == 0) {
 			cout << "\nFound book!" << endl;
 			cout << "Its details is:" << endl;
-			cout << temp->bookID << endl;
-			cout << temp->bookTitle << endl;
-			cout << temp->author << endl;
-			cout << temp->availability << endl << endl; 
+			cout << "Book ID: " << temp->bookID << endl;
+			cout << "Book Title: " << temp->bookTitle << endl;
+			cout << "Book Author: " << temp->author << endl;
+			cout << "Availability: " << temp->availability << endl << endl;
 		}
 		else {
-			cout << "No match found.";
+			cout << "No match found." << endl;
 		}
 	}
 	else if (choice == 3) {
@@ -309,16 +311,16 @@ void List<T>::searchBook() {
 		while ( temp->next != NULL) {
 			if (target.compare(temp->author) == 0) {
 				match++;
-				cout << "Match: " << match  << endl;
-				cout << temp->bookID << endl;
-				cout << temp->bookTitle << endl;
-				cout << temp->author << endl;
-				cout << temp->availability << endl;				
+				cout << "Match: " << match << endl;
+				cout << "Book ID: "<<temp->bookID << endl;
+				cout << "Book Title: " << temp->bookTitle << endl;
+				cout << "Book Author: " << temp->author << endl;
+				cout << "Availability: " << temp->availability << endl << endl;
 			}
 			temp = temp->next;
 		}
 		if (match == 0) {
-			cout << "No match found!" << endl;
+			cout << "\nNo match found!" << endl;
 		}
 	}
 	else  if (choice == 4) {
@@ -330,15 +332,15 @@ void List<T>::searchBook() {
 			if (target.compare(temp->availability) == 0) {
 				match++;
 				cout << "Match: " << match << endl;
-				cout << temp->bookID << endl;
-				cout << temp->bookTitle << endl;
-				cout << temp->author << endl;
-				cout << temp->availability << endl;
+				cout << "Book ID: "<<temp->bookID << endl;
+				cout << "Book Title: " << temp->bookTitle << endl;
+				cout << "Book Author: " << temp->author << endl;
+				cout << "Availability: " << temp->availability << endl << endl;
 			}
 			temp = temp->next;
 		}
 		if (match ==0 ) {
-			cout << "No match found.";
+			cout << "\n\nNo match found.";
 		}
 	}
 	else {
