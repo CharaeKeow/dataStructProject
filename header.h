@@ -13,7 +13,7 @@ private:
 		Node* next;
 	};
 public:
-	int count;
+	int count = 0;
 	Node* head, * tail, *temp;
 	List();
 	~List() {};
